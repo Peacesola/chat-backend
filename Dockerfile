@@ -1,5 +1,6 @@
 FROM openjdk:24-jdk-slim AS build
 COPY . .
+RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
