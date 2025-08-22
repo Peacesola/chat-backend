@@ -1,4 +1,4 @@
-FROM openjdk:24-jdk-slim AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 COPY . .
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
