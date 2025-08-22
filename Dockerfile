@@ -1,6 +1,6 @@
 FROM maven:3.8.3-openjdk-17 as build
 COPY . .
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/Chat-0.0.1-SNAPSHOT.jar Chat.jar
