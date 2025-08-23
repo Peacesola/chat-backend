@@ -43,7 +43,7 @@ public class AuthController {
     public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
         if (user.existsByEmail(request.getEmail()))
             return ResponseEntity.badRequest().body(Map.of(
-                    "message","Username already taken"
+                    "message","Email already in use"
             ));
         if (request.getUsername()==null || request.getEmail()==null || request.getPassword()==null)
             return ResponseEntity.badRequest().body(Map.of(
