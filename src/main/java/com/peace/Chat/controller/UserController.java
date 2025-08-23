@@ -25,11 +25,10 @@ public class UserController {
     @GetMapping("/me")
     public Object me(@AuthenticationPrincipal UserDetails principal) {
         var user = userService.findByUsername(principal.getUsername());
-
         return AuthResponse.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
-               // .displayName(user.getDisplayName())
+                .profileImageUrl(user.getProfileImageUrl()!=null?user.getProfileImageUrl():null )
                 .build();
     }
 

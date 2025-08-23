@@ -17,7 +17,7 @@ public class AuthResponse {
 
     private String token;
     private  String username;
-    private  String displayName;
     private  String userId;
     private  Set<Role> roles;
+    private String profileImageUrl;
 }
