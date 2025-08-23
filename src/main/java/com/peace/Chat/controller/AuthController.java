@@ -45,6 +45,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(Map.of(
                     "message","Username already taken"
             ));
+        if (request.getUsername()==null || request.getEmail()==null || request.getPassword()==null)
+            return ResponseEntity.badRequest().body(Map.of(
+                    "message","All fields are required"
+            ));
         User u= User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
@@ -64,8 +68,6 @@ public class AuthController {
                 "message","User registered successfully",
                 "user",response
         ));
-       // String token = jwt.generateToken(registerResponse.getUsername(), Map.of("roles", req.getRoles()));
-        //return ResponseEntity.ok(new RegisterResponse( req.getUsername(), req.getEmail()));
     }
 
     @PostMapping("/login")
