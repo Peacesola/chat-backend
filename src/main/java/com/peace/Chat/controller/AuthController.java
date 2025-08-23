@@ -37,6 +37,8 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final AuthService authService;
     private final AuthenticationManager manager;
+
+
     private final JwtService jwtService;
 
     @PostMapping("/register")
