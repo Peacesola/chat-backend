@@ -41,7 +41,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
-        if (user.existsByEmail(request.getEmail()))
+        /*if (user.existsByEmail(request.getEmail()))
             return ResponseEntity.badRequest().body(Map.of(
                     "message","Email already in use"
             ));
@@ -62,11 +62,11 @@ public class AuthController {
         var response= RegisterResponse.builder()
                 .username(u.getUsername())
                 .email(email)
-                .build();
+                .build();*/
 
         return  ResponseEntity.ok(Map.of(
                 "message","User registered successfully",
-                "user",response
+                "user","response"
         ));
     }
 
@@ -82,10 +82,6 @@ public class AuthController {
         return ResponseEntity.ok(user);*/
 
             User u = user.findByEmail(request.getEmail()).orElseThrow();
-
-        /*if (u.getLastLoginToken() != null) {
-            throw new BadRequestException("User is already logged in");
-        }*/
 
             var id= u.getId();
             var email= u.getEmail();
