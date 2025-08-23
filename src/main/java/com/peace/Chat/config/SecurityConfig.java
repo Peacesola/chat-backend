@@ -38,7 +38,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
-        return cfg.getAuthenticationManager(); // uses our UserDetailsService
+        return cfg.getAuthenticationManager();
     }
 
     @Bean
@@ -56,11 +56,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // JWT → stateless; for browser forms use CSRF
-                .cors(c -> {}) // use bean above
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(c -> {})
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**","/api/chats/**","/api/users/**"/*,"/chat/**"*/).permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/ws/**","/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )

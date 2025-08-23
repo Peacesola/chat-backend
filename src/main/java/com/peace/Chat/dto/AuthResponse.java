@@ -15,9 +15,9 @@ import java.util.Set;
 @Data
 public class AuthResponse {
 
-    private String token;
+    private String email;
     private  String username;
     private  String userId;
-    private  Set<Role> roles;
+    //private  Set<Role> roles;
     private String profileImageUrl;
 }

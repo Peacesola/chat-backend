@@ -3,6 +3,7 @@ package com.peace.Chat.controller;
 import com.peace.Chat.dto.AuthResponse;
 import com.peace.Chat.dto.UserResponse;
 import com.peace.Chat.model.User;
+import com.peace.Chat.security.CustomUserDetailsService;
 import com.peace.Chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,28 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/me")
-    public Object me(@AuthenticationPrincipal UserDetails principal) {
-        var user = userService.findByUsername(principal.getUsername());
-        return AuthResponse.builder()
-                .userId(user.getId())
-                .username(user.getUsername())
-                .profileImageUrl(user.getProfileImageUrl()!=null?user.getProfileImageUrl():null )
-                .build();
+    public ResponseEntity<Map<String,Object>> me(@AuthenticationPrincipal UserDetails principal) {
+        try {
+            var user = userService.findByEmail(principal.getUsername());
+            var response= AuthResponse.builder()
+                    .email(user.getEmail())
+                    .userId(user.getId())
+                    .username(user.getUsername())
+                    .profileImageUrl(user.getProfileImageUrl())
+                    .build();
+            return ResponseEntity.ok(Map.of(
+                    "message","User details fetched successfully",
+                    "user",response
+            ));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(Map.of(
+                    "message","Failed to load information. Please check your internet connection",
+                    "error",e.getMessage()  //long error msg: do not display
+            ));
+        }
     }
 
     @PostMapping("/{id}/profile-image")
@@ -45,7 +59,7 @@ public class UserController {
             ));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(Map.of(
-                    "message",e.getMessage()  //long error msg: do not display
+                    "error",e.getMessage()  //long error msg: do not display
             ));
         }
     }
