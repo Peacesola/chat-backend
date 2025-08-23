@@ -23,6 +23,7 @@ public class JwtService {
     @Value("${app.jwt.exp-minutes}")
     private long expirationMinutes;
 
+
     private Key getSigningKey(){
         byte[] keyBytes= Decoders.BASE64.decode(secretBase64);
         return Keys.hmacShaKeyFor(keyBytes);
