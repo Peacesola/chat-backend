@@ -41,14 +41,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
-        //var user= authService.register(req);
-        //return ResponseEntity.ok(user);
-        /*return ResponseEntity.ok(Map.of(
-                "message","User registered successfully",
-                "user",user
-        ));*/
         if (user.existsByEmail(request.getEmail()))
-            //throw new BadRequestException("Email already registered");
             return ResponseEntity.badRequest().body(Map.of(
                     "message","Username already taken"
             ));
@@ -61,12 +54,8 @@ public class AuthController {
 
         user.save(u);
 
-        //String token= jwtService.generateToken(u.getUsername(), Map.of("uid",u.getId()));
         var email= u.getEmail();
         var response= RegisterResponse.builder()
-                //.token(token)
-                //.expiresInSec(60L * 60L)
-                //.userId(u.getId())
                 .username(u.getUsername())
                 .email(email)
                 .build();
