@@ -1,5 +1,6 @@
 FROM maven:3.8.3-openjdk-17 as build
 COPY . .
+RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
