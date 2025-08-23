@@ -1,0 +1,8 @@
+spring.application.name=Chat
+spring.data.mongodb.uri=mongodb+srv://${env.MONGO_USER}:${env.MONGO_PASSWORD}@${env.MONGO_CLUSTER}
+spring.data.mongodb.database=${env.MONGO_DATABASE}
+app.jwt.secret-base64=${env.JWT_SECRET}
+app.jwt.exp-minutes=${env.JWT_EXP_MINUTES}
+cloudinary.cloud_name=${env.CLOUDINARY_CLOUD_NAME}
+cloudinary.api_key=${env.CLOUDINARY_API_KEY}
+cloudinary.api_secret=${env.CLOUDINARY_API_SECRET}
