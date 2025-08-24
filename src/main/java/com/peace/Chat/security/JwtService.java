@@ -9,7 +9,10 @@ import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Key;
 import java.time.Instant;
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${app.jwt.secret-base64}")

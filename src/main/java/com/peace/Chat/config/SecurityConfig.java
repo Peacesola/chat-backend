@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .cors(c -> {})
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**","/").permitAll()
                         .requestMatchers("/ws/**","/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
