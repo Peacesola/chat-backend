@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository users;
-
+//RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*     RUN chmod +x mvnw
     @Override
     public UserDetails loadUserByUsername(String email)throws UsernameNotFoundException {
         User user= users.findByEmail(email)
