@@ -1,11 +1,9 @@
 FROM maven:3.8.3-openjdk-17 as build
-WORKDIR /app
 COPY . .
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
-WORKDIR /app
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=build /target/Chat-0.0.1-SNAPSHOT.jar Chat.jar
 EXPOSE 8080
