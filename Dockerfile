@@ -5,6 +5,8 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
+WORKDIR /app
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=build /target/Chat-0.0.1-SNAPSHOT.jar Chat.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","Chat.jar"]
