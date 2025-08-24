@@ -18,13 +18,4 @@ public class ChatApplication {
 		SpringApplication.run(ChatApplication.class, args);
 	}
 
-
-	@Value("${app.jwt.secret-base64}")
-	private String secretBase64;
-
-	@Value("${app.jwt.exp-minutes}")
-	private String expirationMinutes;
-
-
-
 }

@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${app.jwt.secret-base64}")
