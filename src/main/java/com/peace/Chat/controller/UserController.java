@@ -46,15 +46,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/me/profile-image")
+    @PostMapping("/{id}/profile-image")
     public ResponseEntity<Map<String,Object>>uploadProfileImage(
-            //@PathVariable String id,
-            @AuthenticationPrincipal UserDetails principal,
+            @PathVariable String id,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         try {
-            var user = userService.findByEmail(principal.getUsername());
-            String url = userService.uploadProfileImage(user.getId(), file);
+            String url = userService.uploadProfileImage(id, file);
             return ResponseEntity.ok(Map.of(
                     "message","Photo uploaded successfully",
                     "url",url
