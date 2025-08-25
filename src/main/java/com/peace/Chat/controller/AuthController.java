@@ -99,8 +99,8 @@ public class AuthController {
                     .email(email)
                     .build();
             if (!user.existsByEmail(request.getEmail())){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                        "error", "User not found"
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "error", "User does not exist"
                 ));
             }
             return  ResponseEntity.ok(Map.of(
@@ -111,11 +111,6 @@ public class AuthController {
         }catch (BadCredentialsException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "message", "Invalid email or password"
-            ));
-        }catch (UsernameNotFoundException e) {
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                    "error", "User not found"
             ));
         }
     }
