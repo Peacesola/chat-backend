@@ -15,5 +15,5 @@ public class RegisterResponse {
     private  String username;
    // private  String displayName;
     private String email;
-   // private  String userId;
+    private  String userId;
 }

@@ -28,8 +28,6 @@ public class RegisterRequest {
     @Size(min=8, max=100)
     private String password;
 
-    @Id
-    private String id;
 }
 
 

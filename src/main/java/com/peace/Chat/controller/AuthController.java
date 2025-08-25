@@ -53,7 +53,6 @@ public class AuthController {
                     "message","All fields are required"
             ));
         User u= User.builder()
-                .id(request.getId())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
@@ -64,6 +63,7 @@ public class AuthController {
 
         var email= u.getEmail();
         var response= RegisterResponse.builder()
+                .userId(u.getId())
                 .username(u.getUsername())
                 .email(email)
                 .build();
