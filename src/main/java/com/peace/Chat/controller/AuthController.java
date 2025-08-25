@@ -101,7 +101,7 @@ public class AuthController {
 
             var wrongUser= request.getEmail();
             if (!user.existsByEmail(wrongUser)){
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                return ResponseEntity.badRequest().body(Map.of(
                         "error", "User with the email " +wrongUser +" does not exist"
                 ));
             }
