@@ -63,7 +63,7 @@ public class AuthController {
 
         var email= u.getEmail();
         var response= RegisterResponse.builder()
-                .userId(u.getId())
+                //.userId(u.getId())
                 .username(u.getUsername())
                 .email(email)
                 .build();
