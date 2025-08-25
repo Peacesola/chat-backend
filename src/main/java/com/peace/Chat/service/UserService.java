@@ -1,7 +1,6 @@
 package com.peace.Chat.service;
 
 import com.peace.Chat.dto.UserResponse;
-import com.peace.Chat.error.NotFoundException;
 import com.peace.Chat.model.Role;
 import com.peace.Chat.model.User;
 import com.peace.Chat.repo.UserRepository;
