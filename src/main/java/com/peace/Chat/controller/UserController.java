@@ -46,6 +46,22 @@ public class UserController {
         }
     }
 
-
+    @PostMapping("/{id}/profile-image")
+    public ResponseEntity<Map<String,Object>>uploadProfileImage(
+            @PathVariable String id,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        try {
+            String url = userService.uploadProfileImage(id, file);
+            return ResponseEntity.ok(Map.of(
+                    "message","Photo uploaded successfully",
+                    "url",url
+            ));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error",e.getMessage()  //long error msg: do not display
+            ));
+        }
+    }
 
 }
