@@ -34,7 +34,6 @@ public class AuthService {
                      "message","Username already taken"
              ));
         User u= User.builder()
-                .id(request.g)
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
