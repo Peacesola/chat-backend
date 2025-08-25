@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import java.util.Set;
 
@@ -26,6 +27,9 @@ public class RegisterRequest {
     @NotBlank
     @Size(min=8, max=100)
     private String password;
+
+    @Id
+    private String id;
 }
 
 

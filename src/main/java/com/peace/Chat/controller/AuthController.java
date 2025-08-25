@@ -53,6 +53,7 @@ public class AuthController {
                     "message","All fields are required"
             ));
         User u= User.builder()
+                .id(request.getId())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
