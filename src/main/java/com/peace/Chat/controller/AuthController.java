@@ -76,7 +76,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> login(@RequestBody @Valid LoginRequest request){
-         manager.authenticate(
+        try {
+            /*Authentication auth =*/ manager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
       /*  var principal = (UserDetails) auth.getPrincipal();
@@ -97,22 +98,26 @@ public class AuthController {
                     .username(u.getUsername())
                     .email(email)
                     .build();
-            /*if (!user.existsByEmail(request.getEmail())){
+            if (!user.existsByEmail(request.getEmail())){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
                         "error", "User not found"
                 ));
-            }*/
+            }
             return  ResponseEntity.ok(Map.of(
                     "message","User logged in successfully",
                     "user",response
             ));
 
-        /*catch (UsernameNotFoundException e) {
+        }/*catch (BadCredentialsException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "message", "Invalid email or password"
+            ));
+        }*/catch (UsernameNotFoundException e) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
                     "error", "User not found"
             ));
-        }*/
+        }
     }
 
 
