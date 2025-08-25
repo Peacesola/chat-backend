@@ -8,6 +8,7 @@ import com.peace.Chat.repo.UserRepository;
 import com.peace.Chat.security.JwtService;
 import com.peace.Chat.service.AuthService;
 
+import com.peace.Chat.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
@@ -20,11 +21,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +33,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private final UserService userService;
     private final UserRepository user;
     private final PasswordEncoder encoder;
     private final AuthService authService;
@@ -112,4 +113,25 @@ public class AuthController {
             ));
         }
     }
+
+
+
+    @PostMapping("/{id}/profile-image")
+    public ResponseEntity<Map<String,Object>>uploadProfileImage(
+            @PathVariable String id,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        try {
+            String url = userService.uploadProfileImage(id, file);
+            return ResponseEntity.ok(Map.of(
+                    "message","Photo uploaded successfully",
+                    "url",url
+            ));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error",e.getMessage()  //long error msg: do not display
+            ));
+        }
+    }
+
 }
