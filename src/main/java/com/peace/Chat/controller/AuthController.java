@@ -108,11 +108,11 @@ public class AuthController {
                     "user",response
             ));
 
-        }/*catch (BadCredentialsException e){
+        }catch (BadCredentialsException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "message", "Invalid email or password"
             ));
-        }*/catch (UsernameNotFoundException e) {
+        }catch (UsernameNotFoundException e) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
                     "error", "User not found"
