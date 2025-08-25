@@ -97,11 +97,11 @@ public class AuthController {
                     .username(u.getUsername())
                     .email(email)
                     .build();
-            if (!user.existsByEmail(request.getEmail())){
+            /*if (!user.existsByEmail(request.getEmail())){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
                         "error", "User not found"
                 ));
-            }
+            }*/
             return  ResponseEntity.ok(Map.of(
                     "message","User logged in successfully",
                     "user",response
