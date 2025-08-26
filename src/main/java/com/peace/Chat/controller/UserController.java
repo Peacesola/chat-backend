@@ -3,6 +3,7 @@ package com.peace.Chat.controller;
 import com.peace.Chat.dto.AuthResponse;
 import com.peace.Chat.dto.UserResponse;
 import com.peace.Chat.model.User;
+import com.peace.Chat.repo.UserRepository;
 import com.peace.Chat.security.CustomUserDetailsService;
 import com.peace.Chat.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,8 +23,24 @@ import java.util.Map;
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final UserRepository userRepository;
     private final UserService userService;
     private final CustomUserDetailsService customUserDetailsService;
+
+    @GetMapping
+    public ResponseEntity<Map<String,Object>> getAllUsers(){
+        List<User> users= userRepository.findAll();
+        if(users.isEmpty()){
+            return ResponseEntity.ok().body(Map.of(
+                    "message","No users"
+            ));
+        }
+        return ResponseEntity.ok().body(Map.of(
+             "message","Users fetched successfully",
+             "users",users
+        ));
+    }
+
 
     @GetMapping("/me")
     public ResponseEntity<Map<String,Object>> me(@AuthenticationPrincipal UserDetails principal) {
