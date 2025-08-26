@@ -28,8 +28,14 @@ public class UserController {
     private final CustomUserDetailsService customUserDetailsService;
 
     @GetMapping
-    public ResponseEntity<Map<String,Object>> getAllUsers(){
+    public ResponseEntity<Map<String,Object>> getAllUsers(User user){
         List<User> users= userRepository.findAll();
+        var response= UserResponse.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .profileImageUrl(user.getProfileImageUrl())
+                .build();
         if(users.isEmpty()){
             return ResponseEntity.ok().body(Map.of(
                     "message","No users"
@@ -37,7 +43,7 @@ public class UserController {
         }
         return ResponseEntity.ok().body(Map.of(
              "message","Users fetched successfully",
-             "users",users
+             "users",response
         ));
     }
 
