@@ -26,7 +26,7 @@ public class ChatRestController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> create(@RequestBody @Valid CreateChatRequest req,
+    public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req,
                          @AuthenticationPrincipal UserDetails me) {
         var chat = chats.createChat(/*req.getType(),*/ req.getParticipantUserIds() /*req.getName()*/);
         return ResponseEntity.ok(Map.of(
