@@ -54,9 +54,9 @@ public class ChatRestController {
             //@AuthenticationPrincipal UserDetails me
     ) {
         var sentMessage= messages.sendMessage(req.getChatId(),req.getSenderId(), /*req.getType(),*/ req.getContent());
-
         return ResponseEntity.ok(Map.of(
-                "message","Message sent successfully: "+sentMessage
+                "Success","Message sent successfully",
+                "message",sentMessage
         ));
     }
 
