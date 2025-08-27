@@ -50,10 +50,10 @@ public class ChatRestController {
 
     @PostMapping("/send_text")
     public ResponseEntity<Map<String,Object>> sendMessage(
-            @RequestBody @Valid SendMessageRequest req,
-            @AuthenticationPrincipal UserDetails me
+            @RequestBody @Valid SendMessageRequest req
+            //@AuthenticationPrincipal UserDetails me
     ) {
-        var sentMessage= messages.sendMessage(req.getChatId(), me.getUsername(), /*req.getType(),*/ req.getContent());
+        var sentMessage= messages.sendMessage(req.getChatId(),req.getSenderId(), /*req.getType(),*/ req.getContent());
 
         return ResponseEntity.ok(Map.of(
                 "message","Message sent successfully: "+sentMessage

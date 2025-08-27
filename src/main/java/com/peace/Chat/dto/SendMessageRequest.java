@@ -14,4 +14,5 @@ public class SendMessageRequest {
     private MessageType type = MessageType.TEXT;
     @NotBlank
     private String content;
+    private String senderId;
 }
