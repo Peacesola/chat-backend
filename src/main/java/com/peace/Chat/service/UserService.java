@@ -1,5 +1,6 @@
 package com.peace.Chat.service;
 
+import com.peace.Chat.dto.UserDto;
 import com.peace.Chat.dto.UserResponse;
 import com.peace.Chat.model.Role;
 import com.peace.Chat.model.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -45,6 +47,16 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
+
+    public List<UserDto>getAllUsers(){
+        List<User> users= userRepository.findAll();
+        return users.stream().map(user -> new UserDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getProfileImageUrl()
+        )).toList();
+    }
 
     public String uploadProfileImage(String id, MultipartFile file) throws IOException, java.io.IOException {
         String imageUrl = cloudinaryService.upLoadFile(file, "chat_app/profiles");

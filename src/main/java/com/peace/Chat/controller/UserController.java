@@ -30,13 +30,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Map<String,Object>> getAllUsers(){
-        List<User> users= userRepository.findAll();
-       /* var response= UserResponse.builder()
-                .id(res.getUserId())
-                .username(res.getUsername())
-                .email(res.getEmail())
-                .profileImageUrl(user.getProfileImageUrl())
-                .build();*/
+        var users= userService.getAllUsers();
         if(users.isEmpty()){
             return ResponseEntity.ok().body(Map.of(
                     "message","No users"
