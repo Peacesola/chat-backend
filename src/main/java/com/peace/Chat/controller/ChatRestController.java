@@ -16,8 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
-@RestController
-@RequestMapping("/api/chats")
+
 @RequiredArgsConstructor
 public class ChatRestController {
 
@@ -28,7 +27,7 @@ public class ChatRestController {
     @PostMapping
     public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req,
                          @AuthenticationPrincipal UserDetails me) {
-        var chat = chats.createChat(/*req.getType(),*/ req.getParticipantUserIds() /*req.getName()*/);
+        var chat = chats.createChat( req.getParticipantUserIds() /*req.getName()*/);
         return ResponseEntity.ok(Map.of(
                 "message","Chat created successfully",
                 "chatId",chat
