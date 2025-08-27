@@ -23,24 +23,15 @@ public class User {
     @Id
     private String id;
 
-    //@Indexed(unique = true)
     private String username;
 
     @Indexed(unique = true)
     private String email;
 
-    //private String displayName;
 
     private String profileImageUrl;
 
     private String password;
-
-
-   /* private String statusMessage;
-
-    private Instant createdAt;
-
-    private Instant lastSeen;*/
 
     private Set<Role> roles;
 

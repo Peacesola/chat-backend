@@ -1,6 +1,7 @@
 package com.peace.Chat.controller;
 
 import com.peace.Chat.dto.AuthResponse;
+import com.peace.Chat.dto.RegisterResponse;
 import com.peace.Chat.dto.UserResponse;
 import com.peace.Chat.model.User;
 import com.peace.Chat.repo.UserRepository;
@@ -28,14 +29,14 @@ public class UserController {
     private final CustomUserDetailsService customUserDetailsService;
 
     @GetMapping
-    public ResponseEntity<Map<String,Object>> getAllUsers(User user){
+    public ResponseEntity<Map<String,Object>> getAllUsers(){
         List<User> users= userRepository.findAll();
-        var response= UserResponse.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
+       /* var response= UserResponse.builder()
+                .id(res.getUserId())
+                .username(res.getUsername())
+                .email(res.getEmail())
                 .profileImageUrl(user.getProfileImageUrl())
-                .build();
+                .build();*/
         if(users.isEmpty()){
             return ResponseEntity.ok().body(Map.of(
                     "message","No users"
@@ -43,7 +44,7 @@ public class UserController {
         }
         return ResponseEntity.ok().body(Map.of(
              "message","Users fetched successfully",
-             "users",response
+             "users",users
         ));
     }
 
