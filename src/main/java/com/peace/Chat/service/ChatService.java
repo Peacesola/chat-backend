@@ -16,13 +16,13 @@ public class ChatService {
 
     private final ChatRepository chats;
 
-    public Chat createChat(ChatType type, List<String> participantUserIds, String name) {
+    public Chat createChat(/*ChatType type, */List<String> participantUserIds /*String name*/) {
         var now = Instant.now();
         var chat = Chat.builder()
-                .type(type)
-                .name(type == ChatType.GROUP ? name : null)
+                //.type(type)
+                //.name(type == ChatType.GROUP ? name : null)
                 .participants(participantUserIds)
-                .admins(type == ChatType.GROUP ? Set.copyOf(participantUserIds.subList(0,1)) : null)
+                //.admins(type == ChatType.GROUP ? Set.copyOf(participantUserIds.subList(0,1)) : null)
                 .createdAt(now)
                 .updatedAt(now)
                 .build();
