@@ -30,7 +30,8 @@ public class ChatRestController {
                          @AuthenticationPrincipal UserDetails me) {
         var chat = chats.createChat(/*req.getType(),*/ req.getParticipantUserIds() /*req.getName()*/);
         return ResponseEntity.ok(Map.of(
-                "message","Chat created successfully: "+chat
+                "message","Chat created successfully",
+                "chatId",chat
         ));
     }
 
