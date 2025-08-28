@@ -70,4 +70,14 @@ public class ChatController {
                           @RequestParam(defaultValue = "30") int size) {
         return messages.history(chatId, page, size);
     }
+
+    @PostMapping
+    public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req,
+                                                         @AuthenticationPrincipal UserDetails me) {
+        var chat = chats.createChat( req.getParticipantUserIds() /*req.getName()*/);
+        return ResponseEntity.ok(Map.of(
+                "message","Chat created successfully",
+                "chatId",chat
+        ));
+    }
 }
