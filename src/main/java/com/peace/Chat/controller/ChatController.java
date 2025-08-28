@@ -27,7 +27,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/chats")
 @RequiredArgsConstructor
-@Controller
 public class ChatController {
     private final MessageService messages;
     private final SimpMessagingTemplate broker;
