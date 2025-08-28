@@ -15,5 +15,4 @@ public class SendMessageRequest {
     @NotBlank
     private String content;
     private String senderId;
-    private String receiverId;
 }

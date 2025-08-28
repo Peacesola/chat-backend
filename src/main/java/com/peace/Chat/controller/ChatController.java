@@ -47,7 +47,7 @@ public class ChatController {
         broker.convertAndSend(destination, saved);
 
         // Notify the receiver
-        broker.convertAndSendToUser(req.getReceiverId(),"/queue/messages",saved);
+       // broker.convertAndSendToUser(req.getReceiverId(),"/queue/messages",saved);
 
         // Notify the sender (for confirmation)
         broker.convertAndSendToUser(

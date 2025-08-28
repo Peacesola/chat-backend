@@ -32,6 +32,6 @@ public class Message {
 
     private Instant sentAt;
 
-    private Set<String> deliveredTo; // user ids
-    private Set<String> readBy;
+   // private Set<String> deliveredTo; // user ids
+   // private Set<String> readBy;
 }
