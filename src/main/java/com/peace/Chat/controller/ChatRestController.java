@@ -24,10 +24,10 @@ public class ChatRestController {
     private final MessageService messages;
 
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req,
                          @AuthenticationPrincipal UserDetails me) {
-        var chat = chats.createChat( req.getParticipantUserIds() /*req.getName()*/);
+        var chat = chats.createChat( req.getParticipantUserIds() *//*req.getName()*//*);
         return ResponseEntity.ok(Map.of(
                 "message","Chat created successfully",
                 "chatId",chat
@@ -44,7 +44,7 @@ public class ChatRestController {
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "30") int size) {
         return messages.history(chatId, page, size);
-    }
+    }*/
 
 
     @PostMapping("/send_text")
