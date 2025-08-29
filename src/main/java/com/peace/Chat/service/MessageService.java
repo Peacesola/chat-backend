@@ -64,8 +64,8 @@ public class MessageService {
         return messages.save(msg);
     }
 
-    public List<Message> history(/*String chatId, int page, int size*/String senderId, String receiverId) {
-        String chatId= generateChatId(senderId,receiverId);
+    public List<Message> history(String chatId/*, int page, int sizeString senderId, String receiverId*/) {
+        //String chatId= generateChatId(senderId,receiverId);
         return messages.findByChatIdOrderBySentAtDesc(chatId/*, PageRequest.of(page, size)*/);
     }
 }

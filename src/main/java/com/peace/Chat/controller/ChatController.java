@@ -64,14 +64,18 @@ public class ChatController {
 
 
     @GetMapping("/{chatId}/messages")
-    public Object history(
+    public ResponseEntity<Map<String,Object>> history(
            /* @PathVariable String chatId,
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "30") int size*/
-            @RequestParam String senderId,
-            @RequestParam String receiverId
+            @PathVariable String chatId
+            //@RequestParam String receiverId
     ) {
-        return messages.history(senderId,receiverId/*, page, size*/);
+        var message= messages.history(chatId/*, page, size*/);
+        return ResponseEntity.ok(Map.of(
+                "message","Messages fetched successfully",
+                "chatId",message
+        ));
     }
 
     /*@GetMapping("/private/messages")
