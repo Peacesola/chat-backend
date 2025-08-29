@@ -30,8 +30,8 @@ public class MessageService {
                 .type(MessageType.TEXT)
                 .content(content)
                 .sentAt(Instant.now())
-                .deliveredTo(Set.of(senderId))
-                .readBy(Set.of(senderId))
+                //.deliveredTo(Set.of(senderId))
+                //.readBy(Set.of(senderId))
                 .build();
         return messages.save(msg);
     }
@@ -46,8 +46,8 @@ public class MessageService {
                 .type(MessageType.IMAGE)
                 .content(imageUrl)
                 .sentAt(Instant.now())
-                .deliveredTo(Set.of(senderId))
-                .readBy(Set.of(senderId))
+                //.deliveredTo(Set.of(senderId))
+                //.readBy(Set.of(senderId))
                 .build();
         return messages.save(msg);
     }
