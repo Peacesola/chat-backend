@@ -23,11 +23,20 @@ public class MessageService {
 
     private CloudinaryService cloudinaryService;
 
-    public Message sendMessage(/*String chatId,*/ String senderId/*, MessageType type,*/ ,String content,
-    String receiverId
+    public String generateChatId (String senderId, String receiverId){
+        if(senderId.compareTo(receiverId)<0){
+            return senderId+"_"+receiverId;
+        }else {
+            return receiverId+"_"+senderId;
+        }
+    }
+
+    public Message sendMessage(/*String chatId,*/ String senderId ,String receiverId,String content
+
     ) throws IOException{
+        String chatId= generateChatId(senderId,receiverId);
         var msg = Message.builder()
-                //.chatId(chatId)
+                .chatId(chatId)
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .type(MessageType.TEXT)
@@ -55,7 +64,8 @@ public class MessageService {
         return messages.save(msg);
     }
 
-    public List<Message> history(String chatId, int page, int size) {
-        return messages.findByChatIdOrderBySentAtDesc(chatId, PageRequest.of(page, size));
+    public List<Message> history(/*String chatId, int page, int size*/String senderId, String receiverId) {
+        String chatId= generateChatId(senderId,receiverId);
+        return messages.findByChatIdOrderBySentAtDesc(chatId/*, PageRequest.of(page, size)*/);
     }
 }

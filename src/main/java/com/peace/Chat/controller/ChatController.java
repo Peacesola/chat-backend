@@ -39,14 +39,14 @@ public class ChatController {
 
         String senderEmail = me.getUsername();
 
-        var saved = messages.sendMessage(req.getSenderId(),req.getContent(),req.getReceiverId()
-                );
+        var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
+        var savedMessage= messages.sendMessage(req.getSenderId(),req.getReceiverId(),req.getContent());
 
-        String destination = "/topic/chats/" + saved.getChatId();
-        broker.convertAndSend(destination, saved);
+        String destination = "/topic/chats/" + chatId;
+        broker.convertAndSend(destination, savedMessage);
 
         // Notify the receiver
-        broker.convertAndSendToUser(senderEmail,"/queue/messages",saved);
+        broker.convertAndSendToUser(senderEmail,"/queue/messages",savedMessage);
 
         // Notify the sender (for confirmation)
         /*broker.convertAndSendToUser(
@@ -64,11 +64,20 @@ public class ChatController {
 
 
     @GetMapping("/{chatId}/messages")
-    public Object history(@PathVariable String chatId,
+    public Object history(
+           /* @PathVariable String chatId,
                           @RequestParam(defaultValue = "0") int page,
-                          @RequestParam(defaultValue = "30") int size) {
-        return messages.history(chatId, page, size);
+                          @RequestParam(defaultValue = "30") int size*/
+            @RequestParam String senderId,
+            @RequestParam String receiverId
+    ) {
+        return messages.history(senderId,receiverId/*, page, size*/);
     }
+
+    /*@GetMapping("/private/messages")
+    public Object privateHistory(){
+        
+    }*/
 
     @PostMapping
     public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req
