@@ -26,7 +26,7 @@ public class Message {
 
     private String chatId;
     private String senderId;
-
+    private String receiverId;
     private MessageType type; // TEXT/IMAGE/FILE
     private String content;   // text or URL for media
 

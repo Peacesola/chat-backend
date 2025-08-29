@@ -39,21 +39,21 @@ public class ChatController {
 
         String senderUsername = auth.getName();
 
-        var saved = messages.sendMessage(req.getChatId(), req.getSenderId(),
-                req.getContent());
+        var saved = messages.sendMessage(req.getSenderId(),req.getContent(),req.getReceiverId()
+                );
 
         String destination = "/topic/chats/" + saved.getChatId();
         broker.convertAndSend(destination, saved);
 
         // Notify the receiver
-       // broker.convertAndSendToUser(req.getReceiverId(),"/queue/messages",saved);
+        broker.convertAndSendToUser(senderUsername,"/queue/messages",saved);
 
         // Notify the sender (for confirmation)
-        broker.convertAndSendToUser(
+        /*broker.convertAndSendToUser(
                 senderUsername,
                 "/queue/messages",
                 saved
-        );
+        );*/
     }
 
 

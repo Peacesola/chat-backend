@@ -16,7 +16,7 @@ public class ChatService {
 
     private final ChatRepository chats;
 
-    public Chat createChat(/*ChatType type, */List<String> participantUserIds /*String name*/) {
+    public Chat createChat(List<String> participantUserIds ) {
         var now = Instant.now();
         var chat = Chat.builder()
                 //.type(type)

@@ -23,10 +23,13 @@ public class MessageService {
 
     private CloudinaryService cloudinaryService;
 
-    public Message sendMessage(String chatId, String senderId/*, MessageType type,*/ ,String content) throws IOException{
+    public Message sendMessage(/*String chatId,*/ String senderId/*, MessageType type,*/ ,String content,
+    String receiverId
+    ) throws IOException{
         var msg = Message.builder()
-                .chatId(chatId)
+                //.chatId(chatId)
                 .senderId(senderId)
+                .receiverId(receiverId)
                 .type(MessageType.TEXT)
                 .content(content)
                 .sentAt(Instant.now())

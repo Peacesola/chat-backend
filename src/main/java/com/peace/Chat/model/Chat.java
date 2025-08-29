@@ -20,7 +20,8 @@ import java.util.Set;
 public class Chat {
     @Id
     private String id;
-
+    private String senderId;
+    private String receiverId;
     private ChatType type;
     private String name;
     private List<String> participants;
