@@ -71,7 +71,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req,
+    public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req
                                                         // @AuthenticationPrincipal UserDetails me
     ) {
         var chat = chats.createChat( req.getParticipantUserIds() /*req.getName()*/);
