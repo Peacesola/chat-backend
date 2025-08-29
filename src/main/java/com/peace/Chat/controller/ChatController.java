@@ -37,7 +37,7 @@ public class ChatController {
     @MessageMapping("/chat.send")
     public void handleSend(@Payload SendMessageRequest req, @AuthenticationPrincipal UserDetails me) {
 
-        String senderUsername = me.getUsername();
+        String senderEmail = me.getUsername();
 
         var saved = messages.sendMessage(req.getSenderId(),req.getContent(),req.getReceiverId()
                 );
@@ -46,7 +46,7 @@ public class ChatController {
         broker.convertAndSend(destination, saved);
 
         // Notify the receiver
-        broker.convertAndSendToUser(senderUsername,"/queue/messages",saved);
+        broker.convertAndSendToUser(senderEmail,"/queue/messages",saved);
 
         // Notify the sender (for confirmation)
         /*broker.convertAndSendToUser(
