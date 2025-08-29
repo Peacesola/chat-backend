@@ -35,9 +35,9 @@ public class ChatController {
 
 
     @MessageMapping("/chat.send")
-    public void handleSend(@Payload SendMessageRequest req, Authentication auth) {
+    public void handleSend(@Payload SendMessageRequest req, @AuthenticationPrincipal UserDetails me) {
 
-        String senderUsername = auth.getName();
+        String senderUsername = me.getUsername();
 
         var saved = messages.sendMessage(req.getSenderId(),req.getContent(),req.getReceiverId()
                 );
