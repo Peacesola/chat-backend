@@ -74,7 +74,7 @@ public class ChatController {
         var message= messages.history(chatId/*, page, size*/);
         return ResponseEntity.ok(Map.of(
                 "message","Messages fetched successfully",
-                "chatId",message
+                "messages",message
         ));
     }
 
