@@ -35,9 +35,9 @@ public class MessageService {
                 .collect(Collectors.joining("_"));
     }
 
-    public Message sendMessage(/*String chatId,*/ String senderId ,String receiverId,String content
+    public Message sendMessage(String chatId,String senderId ,String receiverId,String content
     ) throws IOException{
-        String chatId= generateChatId(senderId,receiverId);
+       // String chatId= generateChatId(senderId,receiverId);
         var msg = Message.builder()
                 .chatId(chatId)
                 .senderId(senderId)
@@ -68,7 +68,6 @@ public class MessageService {
     }
 
     public List<Message> history(String chatId/*, int page, int sizeString senderId, String receiverId*/) {
-        //String chatId= generateChatId(senderId,receiverId);
         return messages.findByChatIdOrderBySentAtDesc(chatId/*, PageRequest.of(page, size)*/);
     }
 }

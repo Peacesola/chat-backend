@@ -41,7 +41,7 @@ public class ChatController {
         String senderEmail = me.getUsername();
 
         //var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
-        var savedMessage= messages.sendMessage(req.getSenderId(),req.getReceiverId(),req.getContent());
+        var savedMessage= messages.sendMessage(req.getChatId(),req.getSenderId(),req.getReceiverId(),req.getContent());
         String destination = "/topic/chats/" + req.getChatId();
         broker.convertAndSend(destination, savedMessage);
 
