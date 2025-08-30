@@ -25,22 +25,21 @@ public class MessageService {
 
     private CloudinaryService cloudinaryService;
 
-    public String generateChatId (String senderId, String receiverId){
-       /* if(senderId.compareTo(receiverId)<0){
+   /* public String generateChatId (String senderId, String receiverId){
+       *//* if(senderId.compareTo(receiverId)<0){
             return senderId+"_"+receiverId;
         }else {
             return receiverId+"_"+senderId;
-        }*/return Stream.of(senderId, receiverId)
+        }*//*return Stream.of(senderId, receiverId)
                 .sorted()
                 .collect(Collectors.joining("_"));
-    }
+    }*/
 
     public Message sendMessage(/*String chatId,*/ String senderId ,String receiverId,String content
-
     ) throws IOException{
-        String chatId= generateChatId(senderId,receiverId);
+        //String chatId= generateChatId(senderId,receiverId);
         var msg = Message.builder()
-                .chatId(chatId)
+                //.chatId(chatId)
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .type(MessageType.TEXT)

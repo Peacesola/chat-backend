@@ -18,13 +18,13 @@ import java.util.Set;
 @AllArgsConstructor
 @Document("chats")
 public class Chat {
-    @Id
+    //@Id
     private String id;
     private String senderId;
     private String receiverId;
     private ChatType type;
     private String name;
-    private List<String> participants;
+    //private List<String> participants;
     private Set<String> admins;
 
     private String lastMessageId;

@@ -42,7 +42,6 @@ public class ChatController {
 
         //var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
         var savedMessage= messages.sendMessage(req.getSenderId(),req.getReceiverId(),req.getContent());
-
         String destination = "/topic/chats/" + savedMessage.getChatId();
         broker.convertAndSend(destination, savedMessage);
 
@@ -90,8 +89,8 @@ public class ChatController {
              CreateChatRequest req
             // @AuthenticationPrincipal UserDetails me
     ) {
-        var chatRoom= messages.generateChatId(req.getSenderId(), req.getReceiverId());
-        //var chat = chats.createChat( req.getParticipantUserIds());
+        //var chatRoom= messages.generateChatId(req.getSenderId(), req.getReceiverId());
+        var chatRoom = chats.createChat( req.getSenderId(), req.getReceiverId());
         return ResponseEntity.ok(Map.of(
                 "message","Chat created successfully",
                 "chatId",chatRoom
