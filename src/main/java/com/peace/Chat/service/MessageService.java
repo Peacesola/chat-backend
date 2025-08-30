@@ -37,7 +37,6 @@ public class MessageService {
 
     public Message sendMessage(String chatId,String senderId ,String receiverId,String content
     ) throws IOException{
-       // String chatId= generateChatId(senderId,receiverId);
         var msg = Message.builder()
                 .chatId(chatId)
                 .senderId(senderId)

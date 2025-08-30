@@ -36,17 +36,17 @@ public class ChatController {
 
 
     @MessageMapping("/chat.send")
-    public void handleSend(@Payload SendMessageRequest req, @AuthenticationPrincipal UserDetails me) {
+    public void handleSend(@Payload SendMessageRequest req/*, @AuthenticationPrincipal UserDetails me*/) {
 
-        String senderEmail = me.getUsername();
+        //String senderEmail = me.getUsername();
 
-        //var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
         var savedMessage= messages.sendMessage(req.getChatId(),req.getSenderId(),req.getReceiverId(),req.getContent());
         String destination = "/topic/chats/" + req.getChatId();
         broker.convertAndSend(destination, savedMessage);
 
+        System.out.println("message:"+req);
         // Notify the receiver
-        broker.convertAndSendToUser(senderEmail,"/queue/messages",savedMessage);
+       // broker.convertAndSendToUser(senderEmail,"/queue/messages",savedMessage);
 
         // Notify the sender (for confirmation)
         /*broker.convertAndSendToUser(
