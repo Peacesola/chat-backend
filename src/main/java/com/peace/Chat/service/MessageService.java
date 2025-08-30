@@ -67,6 +67,6 @@ public class MessageService {
     }
 
     public List<Message> history(String chatId/*, int page, int sizeString senderId, String receiverId*/) {
-        return messages.findByChatIdOrderBySentAtAsc(chatId/*, PageRequest.of(page, size)*/);
+        return messages.findByChatIdOrderBySentAtDesc(chatId/*, PageRequest.of(page, size)*/);
     }
 }
