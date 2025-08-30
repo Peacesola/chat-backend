@@ -20,7 +20,6 @@ import java.util.Set;
 @Document("chats")
 public class Chat {
     //@Id
-    @NotBlank
     private String id;
     private String senderId;
     private String receiverId;
