@@ -10,9 +10,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 public class CreateChatRequest {
-    private ChatType type;
+    /*private ChatType type;
     @NotEmpty
     private List<String> participantUserIds;
-    private String name;
-
+    private String name;*/
+    private String senderId;
+    private String receiverId;
 }

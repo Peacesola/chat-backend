@@ -2,6 +2,7 @@ package com.peace.Chat.controller;
 
 import com.peace.Chat.dto.CreateChatRequest;
 import com.peace.Chat.dto.SendMessageRequest;
+import com.peace.Chat.model.Chat;
 import com.peace.Chat.model.Message;
 import com.peace.Chat.model.MessageType;
 import com.peace.Chat.service.ChatService;
@@ -39,10 +40,10 @@ public class ChatController {
 
         String senderEmail = me.getUsername();
 
-        var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
+        //var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
         var savedMessage= messages.sendMessage(req.getSenderId(),req.getReceiverId(),req.getContent());
 
-        String destination = "/topic/chats/" + chatId;
+        String destination = "/topic/chats/" + savedMessage.getChatId();
         broker.convertAndSend(destination, savedMessage);
 
         // Notify the receiver
@@ -84,13 +85,16 @@ public class ChatController {
     }*/
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> createChat(@RequestBody @Valid CreateChatRequest req
-                                                        // @AuthenticationPrincipal UserDetails me
+    public ResponseEntity<Map<String,Object>> createChat(
+            @RequestBody @Valid
+             CreateChatRequest req
+            // @AuthenticationPrincipal UserDetails me
     ) {
-        var chat = chats.createChat( req.getParticipantUserIds() /*req.getName()*/);
+        var chatRoom= messages.generateChatId(req.getSenderId(), req.getReceiverId());
+        //var chat = chats.createChat( req.getParticipantUserIds());
         return ResponseEntity.ok(Map.of(
                 "message","Chat created successfully",
-                "chatId",chat
+                "chatId",chatRoom
         ));
     }
 }

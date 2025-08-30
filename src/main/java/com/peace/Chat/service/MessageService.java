@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -24,11 +26,13 @@ public class MessageService {
     private CloudinaryService cloudinaryService;
 
     public String generateChatId (String senderId, String receiverId){
-        if(senderId.compareTo(receiverId)<0){
+       /* if(senderId.compareTo(receiverId)<0){
             return senderId+"_"+receiverId;
         }else {
             return receiverId+"_"+senderId;
-        }
+        }*/return Stream.of(senderId, receiverId)
+                .sorted()
+                .collect(Collectors.joining("_"));
     }
 
     public Message sendMessage(/*String chatId,*/ String senderId ,String receiverId,String content
