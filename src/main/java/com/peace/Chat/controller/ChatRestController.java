@@ -52,7 +52,7 @@ public class ChatRestController {
             @RequestBody @Valid SendMessageRequest req
             //@AuthenticationPrincipal UserDetails me
     ) {
-        var sentMessage= messages.sendMessage(req.getChatId(),req.getSenderId(), /*req.getType(),*/ req.getContent());
+        var sentMessage= messages.sendMessage(req.getChatId(),req.getSenderId(), req.getReceiverId(), /*req.getType(),*/ req.getContent());
         return ResponseEntity.ok(Map.of(
                 "Success","Message sent successfully",
                 "message",sentMessage
