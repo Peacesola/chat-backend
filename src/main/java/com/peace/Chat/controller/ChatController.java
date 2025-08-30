@@ -42,7 +42,7 @@ public class ChatController {
 
         //var chatId = messages.generateChatId(req.getSenderId(),req.getReceiverId());
         var savedMessage= messages.sendMessage(req.getSenderId(),req.getReceiverId(),req.getContent());
-        String destination = "/topic/chats/" + savedMessage.getChatId();
+        String destination = "/topic/chats/" + req.getChatId();
         broker.convertAndSend(destination, savedMessage);
 
         // Notify the receiver

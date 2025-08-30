@@ -1,6 +1,7 @@
 package com.peace.Chat.model;
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,12 +20,13 @@ import java.util.Set;
 @Document("chats")
 public class Chat {
     //@Id
+    @NotBlank
     private String id;
     private String senderId;
     private String receiverId;
     private ChatType type;
     private String name;
-    //private List<String> participants;
+    private List<String> participants;
     private Set<String> admins;
 
     private String lastMessageId;
