@@ -21,7 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Message {
 
-    @Id
+   // @Id
     private String id;
     private String chatId;
     private String senderId;
