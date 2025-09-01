@@ -44,7 +44,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         var cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("*")); // tighten in prod
+        cfg.setAllowedOrigins(List.of("https://practice-chat-backend.onrender.com"));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         cfg.setAllowedHeaders(List.of("Authorization","Content-Type"));
         cfg.setAllowCredentials(false);
@@ -61,11 +61,10 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        /*.requestMatchers(HttpMethod.POST,"/api/users/{id}/profile-image").permitAll()// change later*/
                         .requestMatchers("/ws/**","/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-}
+} /*.requestMatchers(HttpMethod.POST,"/api/users/{id}/profile-image").permitAll()// change later*/

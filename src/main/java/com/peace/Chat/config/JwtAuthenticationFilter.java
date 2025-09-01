@@ -1,6 +1,7 @@
 package com.peace.Chat.config;
 import com.peace.Chat.security.CustomUserDetailsService;
 import com.peace.Chat.security.JwtService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,8 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authtoken);
             }
         }
-        catch (Exception e){
-            System.out.println("JWT Error: " + e.getMessage());
+        catch (ExpiredJwtException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
+            return;
         }
         filterChain.doFilter(request,response);
     }
