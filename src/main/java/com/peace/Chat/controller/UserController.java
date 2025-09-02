@@ -8,6 +8,7 @@ import com.peace.Chat.repo.UserRepository;
 import com.peace.Chat.security.CustomUserDetailsService;
 import com.peace.Chat.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,15 +32,21 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Map<String,Object>> getAllUsers(){
         var users= userService.getAllUsers();
-        if(users.isEmpty()){
-            return ResponseEntity.ok().body(Map.of(
-                    "message","No users"
+        try{
+            if(users.isEmpty()){
+                return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                        "message","No users"
+                ));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                    "message","Users fetched successfully",
+                    "users",users
+            ));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                    "message","Could not fetch users"
             ));
         }
-        return ResponseEntity.ok().body(Map.of(
-             "message","Users fetched successfully",
-             "users",users
-        ));
     }
 
 
@@ -58,7 +65,7 @@ public class UserController {
                     "user",response
             ));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(Map.of(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","Failed to load information. Please check your internet connection",
                     "error",e.getMessage()  //long error msg: do not display
             ));
@@ -77,7 +84,7 @@ public class UserController {
                     "url",url
             ));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(Map.of(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "error",e.getMessage()  //long error msg: do not display
             ));
         }

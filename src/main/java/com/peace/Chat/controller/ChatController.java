@@ -9,6 +9,7 @@ import com.peace.Chat.service.ChatService;
 import com.peace.Chat.service.MessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -72,7 +73,7 @@ public class ChatController {
             //@RequestParam String receiverId
     ) {
         var message= messages.history(chatId/*, page, size*/);
-        return ResponseEntity.ok(Map.of(
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message","Messages fetched successfully",
                 "messages",message
         ));

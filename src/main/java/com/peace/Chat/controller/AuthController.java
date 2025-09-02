@@ -68,7 +68,7 @@ public class AuthController {
                 .email(email)
                 .build();
 
-        return  ResponseEntity.ok(Map.of(
+        return  ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message","User registered successfully",
                 "user",response
         ));
@@ -105,7 +105,7 @@ public class AuthController {
                         "error", "User with the email " +wrongUser +" does not exist"
                 ));
             }
-            return  ResponseEntity.ok(Map.of(
+            return  ResponseEntity.status(HttpStatus.OK).body(Map.of(
                     "message","User logged in successfully",
                     "user",response
             ));
