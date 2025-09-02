@@ -45,11 +45,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
         if (user.existsByEmail(request.getEmail()))
-            return ResponseEntity.badRequest().body(Map.of(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","Email already in use"
             ));
         if (request.getUsername()==null || request.getEmail()==null || request.getPassword()==null)
-            return ResponseEntity.badRequest().body(Map.of(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","All fields are required"
             ));
         User u= User.builder()
@@ -111,7 +111,7 @@ public class AuthController {
             ));
 
         }catch (BadCredentialsException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message", "Invalid email or password"
             ));
         }
