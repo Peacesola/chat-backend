@@ -36,7 +36,7 @@ public class JwtService {
 
     public String generateToken(String subject, Map<String, Object> extractClaims){
         Instant now= Instant.now();
-        Instant exp= now.plusSeconds(expirationMinutes*60);
+        Instant exp= now.plusSeconds(/*expirationMinutes**/60);
         return Jwts.builder()
                 .setClaims(extractClaims)
                 .setSubject(subject)
