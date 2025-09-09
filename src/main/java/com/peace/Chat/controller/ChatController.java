@@ -94,7 +94,7 @@ public class ChatController {
 
     @PutMapping("/{chatId}/messages/{id}")
     public ResponseEntity<Map<String,Object>> editMessage(
-         @RequestParam SendMessageRequest req,
+         @RequestBody SendMessageRequest req,
          @PathVariable String id
     ){
         Message message= repository.findById(id).orElseThrow();
