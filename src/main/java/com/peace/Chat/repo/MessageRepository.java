@@ -9,4 +9,5 @@ import java.util.List;
 public interface MessageRepository extends MongoRepository<Message,String> {
 
     List<Message> findByChatIdOrderBySentAtDesc(String chatId/*, Pageable page*/);
+
 }

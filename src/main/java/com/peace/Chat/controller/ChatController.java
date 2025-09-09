@@ -5,6 +5,7 @@ import com.peace.Chat.dto.SendMessageRequest;
 import com.peace.Chat.model.Chat;
 import com.peace.Chat.model.Message;
 import com.peace.Chat.model.MessageType;
+import com.peace.Chat.repo.MessageRepository;
 import com.peace.Chat.service.ChatService;
 import com.peace.Chat.service.MessageService;
 import jakarta.validation.Valid;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
@@ -33,7 +35,7 @@ public class ChatController {
     private final MessageService messages;
     private final SimpMessagingTemplate broker;
     private final ChatService chats;
-
+    private MessageRepository repository;
 
 
     @MessageMapping("/chat.send")
@@ -66,11 +68,7 @@ public class ChatController {
 
     @GetMapping("/{chatId}/messages")
     public ResponseEntity<Map<String,Object>> history(
-           /* @PathVariable String chatId,
-                          @RequestParam(defaultValue = "0") int page,
-                          @RequestParam(defaultValue = "30") int size*/
             @PathVariable String chatId
-            //@RequestParam String receiverId
     ) {
         var message= messages.history(chatId/*, page, size*/);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
@@ -79,10 +77,7 @@ public class ChatController {
         ));
     }
 
-    /*@GetMapping("/private/messages")
-    public Object privateHistory(){
-        
-    }*/
+
 
     @PostMapping
     public ResponseEntity<Map<String,Object>> createChat(
@@ -90,11 +85,27 @@ public class ChatController {
              CreateChatRequest req
             // @AuthenticationPrincipal UserDetails me
     ) {
-        //var chatRoom= messages.generateChatId(req.getSenderId(), req.getReceiverId());
         var chatRoom = chats.createChat( req.getSenderId(), req.getReceiverId());
         return ResponseEntity.ok(Map.of(
                 "message","Chat created successfully",
                 "chatId",chatRoom
         ));
+    }
+
+    @PutMapping("/{chatId}/messages/{id}")
+    public ResponseEntity<Map<String,Object>> editMessage(
+         @RequestParam SendMessageRequest req,
+         @PathVariable String id
+    ){
+        Message message= repository.findById(id).orElseThrow();
+        if(req.getSenderId().equals(message.getSenderId())){
+            message.setContent(req.getContent());
+           var updatedMessage= repository.save(message);
+            return ResponseEntity.ok(Map.of(
+                    "message","Message updated successfully",
+                    "data",updatedMessage
+            ));
+        }
+        return null;
     }
 }
