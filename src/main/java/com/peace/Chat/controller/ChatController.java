@@ -101,7 +101,7 @@ public class ChatController {
         if(req.getSenderId().equals(message.getSenderId())){
             message.setContent(req.getContent());
            var updatedMessage= repository.save(message);
-            return ResponseEntity.ok(Map.of(
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                     "message","Message updated successfully",
                     "data",updatedMessage
             ));
