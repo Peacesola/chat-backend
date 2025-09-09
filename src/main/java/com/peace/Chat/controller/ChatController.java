@@ -106,6 +106,8 @@ public class ChatController {
                     "data",updatedMessage
             ));
         }
-        return null;
+       else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "message","Failed to update message"
+        ));
     }
 }
