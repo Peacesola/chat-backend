@@ -97,12 +97,12 @@ public class ChatController {
          @RequestBody SendMessageRequest req,
          @PathVariable String id
     ){
-        var updatedMessage= messages.editMessage(req.getContent(),id);
+        /*var updatedMessage= messages.editMessage(req.getContent(),id);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message","Message updated successfully",
                 "data",updatedMessage
-        ));
-        /*Message message= repository.findById(id).orElseThrow();
+        ));*/
+        Message message= repository.findById(id).orElseThrow();
         if(req.getSenderId().equals(message.getSenderId())){
             message.setContent(req.getContent());
            var updatedMessage= repository.save(message);
@@ -113,7 +113,7 @@ public class ChatController {
         }
        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                 "message","Failed to update message"
-        ));*/
+        ));
     }
 
     @DeleteMapping("/{chatId}/messages/{id}")
