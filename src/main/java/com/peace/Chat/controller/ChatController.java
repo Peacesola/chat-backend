@@ -109,7 +109,7 @@ public class ChatController {
                    repository.save(message);
             return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                     "message","Message updated successfully",
-                    "data",updatedMessage
+                    "data",message
             ));
        /*else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                 "message","Failed to update message"
