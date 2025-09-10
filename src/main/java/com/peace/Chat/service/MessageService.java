@@ -57,6 +57,11 @@ public class MessageService {
         return messages.save(message);
     }
 
+    public void deleteMessage(String id)throws IOException{
+        Message message= messages.findById(id).orElseThrow();
+         messages.delete(message);
+    }
+
     public Message sendImage(String chatId, String senderId,MultipartFile file) throws IOException, java.io.IOException {
 
         String imageUrl= cloudinaryService.upLoadFile(file, "chat_app/messages");

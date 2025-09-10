@@ -115,4 +115,14 @@ public class ChatController {
                 "message","Failed to update message"
         ));*/
     }
+
+    @DeleteMapping("/{chatId}/messages/{id}")
+    public ResponseEntity<Map<String,Object>> deleteMapping(
+            @PathVariable String id
+    ){
+         messages.deleteMessage(id);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                "message","Message deleted successfully"
+        ));
+    }
 }
