@@ -97,22 +97,21 @@ public class ChatController {
          @RequestBody SendMessageRequest req,
          @PathVariable String id
     ){
-        var updatedMessage= messages.editMessage(req.getContent(),id);
+        /*var updatedMessage= messages.editMessage(req.getContent(),id);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message","Message updated successfully",
                 "data",updatedMessage
-        ));
-        /*Message message= repository.findById(id).orElseThrow();
-        if(req.getSenderId().equals(message.getSenderId())){
+        ));*/
+        Message message= repository.findById(id).orElseThrow();
+
             message.setContent(req.getContent());
-           //var updatedMessage=
+           var updatedMessage=
                    repository.save(message);
             return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                     "message","Message updated successfully",
-                    "data",message
+                    "data",updatedMessage
             ));
-        }
-       else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+       /*else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                 "message","Failed to update message"
         ));*/
     }
