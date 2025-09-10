@@ -105,10 +105,11 @@ public class ChatController {
         Message message= repository.findById(id).orElseThrow();
         if(req.getSenderId().equals(message.getSenderId())){
             message.setContent(req.getContent());
-           var updatedMessage= repository.save(message);
+           //var updatedMessage=
+                   repository.save(message);
             return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                     "message","Message updated successfully",
-                    "data",updatedMessage
+                    "data",message
             ));
         }
        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
