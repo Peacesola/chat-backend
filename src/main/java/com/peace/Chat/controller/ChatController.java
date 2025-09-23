@@ -2,10 +2,7 @@ package com.peace.Chat.controller;
 
 import com.peace.Chat.dto.CreateChatRequest;
 import com.peace.Chat.dto.SendMessageRequest;
-import com.peace.Chat.model.Chat;
-import com.peace.Chat.model.Message;
-import com.peace.Chat.model.MessageType;
-import com.peace.Chat.model.NotificationMessage;
+import com.peace.Chat.model.*;
 import com.peace.Chat.repo.MessageRepository;
 import com.peace.Chat.repo.UserRepository;
 import com.peace.Chat.service.ChatService;
@@ -53,10 +50,10 @@ public class ChatController {
 
         var receiver= userRepository.findById(req.getReceiverId()).orElseThrow();
         String token= receiver.getFcmToken();
-
+        var sender= userRepository.findById(req.getSenderId()).orElseThrow();
         NotificationMessage notificationMessage= NotificationMessage.builder()
                 .token(token)
-                .title(req.getSenderId())
+                .title(sender.getUsername())
                 .body(req.getContent())
                 .build();
 
