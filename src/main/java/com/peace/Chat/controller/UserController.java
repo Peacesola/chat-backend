@@ -95,13 +95,19 @@ public class UserController {
             @PathVariable String id,
             @PathVariable String fcmToken
     ){
-        var user= userRepository.findById(id).orElseThrow();
-        user.setFcmToken(fcmToken);
-        userRepository.save(user);
+        try {
+            var user= userRepository.findById(id).orElseThrow();
+            user.setFcmToken(fcmToken);
+            userRepository.save(user);
 
-       return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-               "message", "FCM token updated"
-       ));
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                    "message", "FCM token updated"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                    "message", "FCM token update failed"
+            ));
+        }
     }
 
 }
