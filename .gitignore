@@ -34,3 +34,6 @@ build/
 
 ### ENV Files ###
 .env
+
+# Ignore Firebase service account key
+src/main/resources/serviceAccountKey.json

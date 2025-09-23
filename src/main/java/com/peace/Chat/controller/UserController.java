@@ -90,4 +90,18 @@ public class UserController {
         }
     }
 
+    @PostMapping("/{id}/{fcmToken}")
+    public ResponseEntity<Map<String, Object>>updateFcmToken(
+            @PathVariable String id,
+            @PathVariable String fcmToken
+    ){
+        var user= userRepository.findById(id).orElseThrow();
+        user.setFcmToken(fcmToken);
+        userRepository.save(user);
+
+       return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+               "message", "FCM token updated"
+       ));
+    }
+
 }

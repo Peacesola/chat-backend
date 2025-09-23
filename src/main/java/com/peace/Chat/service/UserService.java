@@ -54,7 +54,8 @@ public class UserService {
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getProfileImageUrl()
+                user.getProfileImageUrl(),
+                user.getFcmToken()
         )).toList();
     }
 

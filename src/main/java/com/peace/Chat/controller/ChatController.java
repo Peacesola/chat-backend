@@ -5,9 +5,12 @@ import com.peace.Chat.dto.SendMessageRequest;
 import com.peace.Chat.model.Chat;
 import com.peace.Chat.model.Message;
 import com.peace.Chat.model.MessageType;
+import com.peace.Chat.model.NotificationMessage;
 import com.peace.Chat.repo.MessageRepository;
+import com.peace.Chat.repo.UserRepository;
 import com.peace.Chat.service.ChatService;
 import com.peace.Chat.service.MessageService;
+import com.peace.Chat.service.NotificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,17 +38,31 @@ public class ChatController {
     private final MessageService messages;
     private final SimpMessagingTemplate broker;
     private final ChatService chats;
-    private final MessageRepository repository;
+    //private final MessageRepository repository;
+    private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
 
     @MessageMapping("/chat.send")
     public void handleSend(@Payload SendMessageRequest req/*, @AuthenticationPrincipal UserDetails me*/) {
-
         //String senderEmail = me.getUsername();
 
         var savedMessage= messages.sendMessage(req.getChatId(),req.getSenderId(),req.getReceiverId(),req.getContent());
         String destination = "/topic/chats/" + req.getChatId();
         broker.convertAndSend(destination, savedMessage);
+
+        var receiver= userRepository.findById(req.getReceiverId()).orElseThrow();
+        String token= receiver.getFcmToken();
+
+        NotificationMessage notificationMessage= NotificationMessage.builder()
+                .token(token)
+                .title(req.getSenderId())
+                .body(req.getContent())
+                .build();
+
+        if (token != null && !token.isEmpty()){
+            notificationService.sendNotification(notificationMessage);
+        }
 
         System.out.println("message:"+req);
         // Notify the receiver
