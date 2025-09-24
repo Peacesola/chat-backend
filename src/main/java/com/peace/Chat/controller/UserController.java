@@ -90,13 +90,14 @@ public class UserController {
         }
     }
 
-    @PostMapping("/{id}/{fcmToken}")
+    @PostMapping("/{id}/fcm-token")
     public ResponseEntity<Map<String, Object>>updateFcmToken(
             @PathVariable String id,
-            @PathVariable String fcmToken
+            @RequestBody Map<String,String>body
     ){
         try {
             var user= userRepository.findById(id).orElseThrow();
+            String fcmToken = body.get("fcmToken");
             user.setFcmToken(fcmToken);
             userRepository.save(user);
 
