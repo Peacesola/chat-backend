@@ -1,6 +1,7 @@
 package com.peace.Chat.controller;
 
 import com.peace.Chat.dto.AuthResponse;
+import com.peace.Chat.dto.FcmRequest;
 import com.peace.Chat.dto.RegisterResponse;
 import com.peace.Chat.dto.UserResponse;
 import com.peace.Chat.model.User;
@@ -93,10 +94,10 @@ public class UserController {
     @PostMapping("/{id}/fcm-token")
     public ResponseEntity<Map<String, Object>>updateFcmToken(
             @PathVariable String id,
-            @RequestBody Map<String,String>body
-    ){
+            @RequestBody FcmRequest request
+            ){
         try {
-            String fcmToken = body.get("fcmToken");
+            String fcmToken =request.getFcmToken();
             String fcm = userService.saveFcmToken(id,fcmToken);
             /*var user= userRepository.findById(id).orElseThrow();
             String fcmToken = body.get("fcmToken");
