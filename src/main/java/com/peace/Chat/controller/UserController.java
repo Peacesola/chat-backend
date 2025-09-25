@@ -96,13 +96,16 @@ public class UserController {
             @RequestBody Map<String,String>body
     ){
         try {
-            var user= userRepository.findById(id).orElseThrow();
+            String fcmToken = body.get("fcmToken");
+            String fcm = userService.saveFcmToken(id,fcmToken);
+            /*var user= userRepository.findById(id).orElseThrow();
             String fcmToken = body.get("fcmToken");
             user.setFcmToken(fcmToken);
-            userRepository.save(user);
+            userRepository.save(user);*/
 
             return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                    "message", "FCM token updated"
+                    "message", "FCM token updated",
+                    "fcm",fcm
             ));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(

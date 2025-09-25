@@ -68,4 +68,11 @@ public class UserService {
 
         return imageUrl;
     }
+
+    public String saveFcmToken(String id,String fcmToken){
+        User user= userRepository.findById(id).orElseThrow();
+        user.setFcmToken(fcmToken);
+        userRepository.save(user);
+        return fcmToken;
+    }
 }
