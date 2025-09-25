@@ -14,5 +14,6 @@ import lombok.RequiredArgsConstructor;
         private String username;
         private String email;
         private String profileImageUrl;
+        private String fcmToken;
        // private String displayName;
     }

@@ -20,4 +20,5 @@ public class AuthResponse {
     private  String userId;
     //private  Set<Role> roles;
     private String profileImageUrl;
+    private String fcmToken;
 }
