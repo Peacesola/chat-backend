@@ -16,11 +16,11 @@ public class FirebaseInitializer {
 
     @PostConstruct
     public void init() throws IOException {
-        /*InputStream serviceAccount = getClass().getClassLoader()
-                .getResourceAsStream("serviceAccountKey.json");*/
-        String firebaseConfig = System.getenv("FIREBASE_CONFIG");
+        InputStream serviceAccount = getClass().getClassLoader()
+                .getResourceAsStream("serviceAccountKey.json");
+        /*String firebaseConfig = System.getenv("FIREBASE_CONFIG");
         InputStream serviceAccount = new ByteArrayInputStream(firebaseConfig.getBytes());
-
+*/
         FirebaseOptions options= FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
