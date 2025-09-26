@@ -8,14 +8,15 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Component
 public class FirebaseInitializer {
 
     @PostConstruct
     public void init() throws IOException {
-        FileInputStream serviceAccount= new FileInputStream("src/main/resources/serviceAccountKey.json");
-
+        InputStream serviceAccount = getClass().getClassLoader()
+                .getResourceAsStream("serviceAccountKey.json");
         FirebaseOptions options= FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
