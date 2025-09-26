@@ -77,7 +77,7 @@ public class UserController {
     public ResponseEntity<Map<String,Object>>uploadProfileImage(
             @PathVariable String id,
             @RequestParam("file") MultipartFile file
-    ) throws IOException {
+    ){
         try {
             String url = userService.uploadProfileImage(id, file);
             return ResponseEntity.ok(Map.of(
@@ -92,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/fcm-token")
-    public ResponseEntity<Map<String, Object>>updateFcmToken(
+    public ResponseEntity<Map<String,Object>>updateFcmToken(
             @PathVariable String id,
             @RequestBody FcmRequest request
             ){
