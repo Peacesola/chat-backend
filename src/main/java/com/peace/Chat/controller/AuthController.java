@@ -58,7 +58,7 @@ public class AuthController {
         }
         if(request.getPassword().length()<8){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
-                    "message","Password must be 8 characters"
+                    "message","Password must be at least 8 characters"
             ));
         }
         User u= User.builder()
