@@ -16,16 +16,16 @@ import java.util.Set;
 @Data
 public class RegisterRequest {
 
-    @NotBlank
-    @Size(min=3, max=30)
+    /*@NotBlank
+    @Size(min=3, max=30)*/
     private String username;
 
-    @NotBlank
-    @Email
+   /* @NotBlank
+    @Email*/
     private String email;
 
-    @NotBlank
-    @Size(min=8, max=100)
+    /*@NotBlank
+    @Size(min=8, max=100)*/
     private String password;
 
 }

@@ -43,7 +43,7 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
+    public ResponseEntity<Map<String,Object>> register(@RequestBody /*@Valid*/ RegisterRequest request) {
         if (user.existsByEmail(request.getEmail()))
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
