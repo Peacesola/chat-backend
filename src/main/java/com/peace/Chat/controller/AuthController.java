@@ -45,13 +45,17 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Map<String,Object>> register(@RequestBody @Valid RegisterRequest request) {
         if (user.existsByEmail(request.getEmail()))
+        {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","Email already in use"
             ));
+        }
         if (request.getUsername()==null || request.getEmail()==null || request.getPassword()==null)
+        {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","All fields are required"
             ));
+        }
         if(request.getPassword().length()<8){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "message","Password must be 8 characters"
