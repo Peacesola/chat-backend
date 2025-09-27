@@ -68,6 +68,12 @@ public class AuthController {
                 .email(email)
                 .build();
 
+        if(request.getPassword().length()<8){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                    "message","Password must be 8 characters"
+            ));
+        }
+
         return  ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message","User registered successfully",
                 "user",response
